@@ -68,6 +68,10 @@ llm-wiki/
 # Output harness ujicoba digestion
 _digest-test/
 
+# Folder test penugasan hasil render uji coba (context.md + _KKP/_LHP/_PKP).
+# Artefak test, bukan source — jangan di-push.
+test-*-render/
+
 # Korpus ujicoba digestion: dokumen asli jangan di-commit (mungkin rahasia);
 # struktur folder + README + golden.json tetap di-track.
 digest-test-corpus/**/*.pdf
