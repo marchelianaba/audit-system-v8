@@ -1,0 +1,41 @@
+# EWS-03 port — Rasio Produk Dalam Negeri (PDN) per Satker
+id: PBJ-PDN-RASIO
+revisi: "2026-Q2"
+nama: "Rasio Produk Dalam Negeri (PDN) per Satker"
+catatan_revisi: "Port deterministik dari EWS-03 (ews-rules-verified.md, 25 Mei 2026)."
+
+tipe: numeric_threshold
+dimensi: PENGADAAN_RENCANA
+sumber_data: sirup
+satker_terapkan: [itjen, ekosdig, wasdig]
+
+regulasi:
+  - "Inpres 2/2022 (Percepatan Penggunaan PDN)"
+  - "Perpres 12/2021 Pasal 66"
+
+metric:
+  expression: 'sum(data.pagu WHERE data.pdn == "Produk Dalam Negeri") / sum(data.pagu) * 100'
+  satuan: persen
+  format_display: "{:.1f}%"
+
+thresholds:
+  - status: HIJAU
+    condition: ">=60"
+    catatan: "Sesuai target Inpres 2/2022 (min 40% sudah jauh terlampaui)"
+  - status: KUNING
+    condition: ">=40 AND <60"
+    catatan: "Memenuhi minimum tapi mendekati ambang; perlu dipantau"
+  - status: MERAH
+    condition: "<40"
+    catatan: "Di bawah ambang Inpres 2/2022 — pelanggaran kebijakan PDN"
+
+evidence_fields:
+  - data.satker
+  - data.nama_paket
+  - data.pagu
+  - data.pdn
+
+promote:
+  skill: reviu-pengadaan
+  prefilled_obyek_tpl: "Reviu Kepatuhan PDN — {satker} TA {tahun}"
+  prefilled_dasar_permintaan: "Inpres 2/2022 + Perpres 12/2021 Pasal 66"

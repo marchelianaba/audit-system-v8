@@ -1,0 +1,23 @@
+{
+  "penugasan_id": "TEST-PEMANT-001",
+  "tujuan_penugasan": "Menilai Pemantauan Umum pada Direktorat Layanan Digital Pemerintah (DLDP) TA 2025.",
+  "sasaran": [
+    {
+      "sasaran_id": "S01",
+      "deskripsi": "Menilai kesesuaian tata kelola Pemantauan Umum dengan ketentuan perundang-undangan yang berlaku pada Direktorat Layanan Digital Pemerintah (DLDP) TA 2025",
+      "assigned_to": [
+        "Ahmad Wijaya",
+        "Dewi Rahayu"
+      ],
+      "status": "selesai"
+    },
+    {
+      "sasaran_id": "S02",
+      "deskripsi": "Menilai kelengkapan dan kualitas pelaporan hasil Pemantauan Umum pada Direktorat Layanan Digital Pemerintah (DLDP) TA 2025",
+      "assigned_to": [
+        "Rizki Pratama"
+      ],
+      "status": "selesai"
+    }
+  ]
+}

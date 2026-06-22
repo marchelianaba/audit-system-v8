@@ -1,0 +1,18 @@
+{
+  "penugasan_id": "TEST-AUDIT-001",
+  "tujuan_penugasan": "Menilai kepatuhan pengelolaan Pusat Data Nasional Sementara (PDNS) terhadap standar keamanan informasi, dengan fokus pada: (1) keamanan fisik fasilitas server, (2) pengendalian akses logis, dan (3) kesiapan pemulihan bencana.",
+  "sasaran": [
+    {
+      "sasaran_id": "S01",
+      "deskripsi": "Menilai kecukupan pengendalian keamanan fisik ruang server PDNS",
+      "assigned_to": ["Ahmad Fauzi"],
+      "status": "selesai"
+    },
+    {
+      "sasaran_id": "S02",
+      "deskripsi": "Menilai kesiapan dan efektivitas rencana pemulihan bencana (DRP) PDNS",
+      "assigned_to": ["Rina Kusuma"],
+      "status": "selesai"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "penugasan_id": "TEST-AUDIT-001",
+  "skill": "audit-umum",
+  "version": "1.0",
+  "penugasan": {
+    "jenis_pengawasan": "audit-umum",
+    "obyek": "Pusat Data Nasional Sementara (PDNS)",
+    "nomor_st": "ST-123/IJ.4/2026",
+    "tanggal_st": "5 Juni 2026"
+  },
+  "temuan": [
+    {
+      "id_temuan": "T01",
+      "judul_temuan": "Kontrol Akses Fisik Ruang Server Tidak Memadai",
+      "sasaran_id": "S01",
+      "kondisi": "Dari hasil pemeriksaan pada tanggal 10 Juni 2026 ditemukan bahwa 3 (tiga) dari 5 (lima) pintu akses ruang server tidak dilengkapi sistem autentikasi dua faktor (2FA). Pintu tersebut hanya menggunakan kartu akses tunggal tanpa verifikasi biometrik.",
+      "kriteria": "Pasal 15 ayat (2) Peraturan Menteri Kominfo Nomor 4 Tahun 2021 tentang Keamanan Sistem Elektronik mewajibkan fasilitas penyimpanan data kritis menggunakan autentikasi berlapis minimal dua faktor untuk akses fisik.",
+      "sebab": "Pagu anggaran pengamanan fisik tidak mencakup pemasangan perangkat biometrik akibat perubahan prioritas anggaran pada revisi DIPA bulan Maret 2026 yang mengalihkan anggaran ke pengadaan server tambahan.",
+      "akibat": "Risiko akses tidak sah ke ruang server meningkat, berpotensi menyebabkan pencurian data atau sabotase perangkat. Estimasi dampak jika terjadi insiden: Rp 5.000.000.000,00 (lima miliar rupiah) untuk pemulihan sistem.",
+      "nilai_rp": 5000000000,
+      "level_risiko": "material",
+      "dokumen_sumber": [
+        {"file": "Laporan_Inspeksi_Fisik_PDNS_Juni2026.pdf", "halaman": 12, "ringkasan": "Hasil inspeksi fisik menunjukkan kekurangan sistem 2FA pada 3 pintu"},
+        {"file": "SK_Keamanan_Informasi_PDNS_2024.pdf", "halaman": 5, "ringkasan": "Kebijakan keamanan informasi PDNS"}
+      ]
+    },
+    {
+      "id_temuan": "T02",
+      "judul_temuan": "Kebijakan Pemulihan Bencana Belum Diuji Selama 18 Bulan",
+      "sasaran_id": "S02",
+      "kondisi": "Berdasarkan log uji disaster recovery, uji coba terakhir dilaksanakan pada November 2024 atau 18 bulan sebelum audit dilaksanakan. Tidak ada dokumentasi pengujian pada tahun 2025 dan 2026.",
+      "kriteria": "Standar ISO/IEC 27001:2022 klausul 8.13 mewajibkan pengujian rencana keberlangsungan bisnis (BCP) dan pemulihan bencana (DRP) minimal satu kali per tahun.",
+      "sebab": "Tidak terdapat jadwal pengujian rutin yang ditetapkan dalam SOP. Personel yang bertanggung jawab untuk pengujian DR telah dipindahkan ke unit lain tanpa serah terima tugas yang formal.",
+      "akibat": "Ketidakpastian atas kemampuan sistem untuk pulih dalam target RTO (Recovery Time Objective) yang ditetapkan 4 jam. Risiko down time yang lebih lama jika terjadi insiden nyata.",
+      "nilai_rp": 0,
+      "level_risiko": "reguler",
+      "dokumen_sumber": [
+        {"file": "Log_DR_Test_PDNS_2024.xlsx", "halaman": 1, "ringkasan": "Log uji DR menunjukkan uji terakhir November 2024"},
+        {"file": "SOP_Disaster_Recovery_PDNS_v2.pdf", "halaman": 8, "ringkasan": "SOP yang tidak mencantumkan jadwal uji rutin"}
+      ]
+    }
+  ]
+}

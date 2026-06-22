@@ -1,0 +1,49 @@
+{
+  "penugasan": {
+    "penugasan_id": "TEST-EVALUA-001",
+    "jenis_pengawasan": "evaluasi-manajemen-risiko",
+    "obyek": "Direktorat Layanan Digital Pemerintah (DLDP)",
+    "nomor_st": "ST-TEST-EVA/IJ.3/PW.06.01/01/2026",
+    "tanggal_st": "10 Januari 2026"
+  },
+  "temuan": [
+    {
+      "id_temuan": "T-01",
+      "sasaran_id": "S01",
+      "judul_temuan": "Tata Kelola Evaluasi Manajemen Risiko Belum Sepenuhnya Sesuai Ketentuan",
+      "kondisi": "Berdasarkan penelaahan dokumen, pelaksanaan Evaluasi Manajemen Risiko pada Direktorat Layanan Digital Pemerintah (DLDP) belum sepenuhnya memenuhi standar dan prosedur yang ditetapkan.",
+      "kriteria": "Peraturan Pemerintah Nomor 60 Tahun 2008 tentang Sistem Pengendalian Intern Pemerintah dan ketentuan perundang-undangan terkait.",
+      "sebab": "Keterbatasan pemahaman petugas terhadap ketentuan yang berlaku.",
+      "akibat": "Terdapat risiko tidak tercapainya tujuan program/kegiatan secara efektif dan efisien.",
+      "rekomendasi": "Pimpinan Direktorat Layanan Digital Pemerintah (DLDP) agar segera menyusun dan mengimplementasikan rencana tindak lanjut perbaikan atas temuan Evaluasi Manajemen Risiko yang ditemukan dalam periode pengawasan ini.",
+      "level_risiko": "sedang",
+      "nilai_rp": 0,
+      "dokumen_sumber": [
+        {
+          "file": "Dokumen-Evaluasi-Manajemen-Risiko-2025.pdf",
+          "halaman": "1-10",
+          "ringkasan": "Dokumen utama Evaluasi Manajemen Risiko"
+        }
+      ]
+    },
+    {
+      "id_temuan": "T-02",
+      "sasaran_id": "S02",
+      "judul_temuan": "Pelaporan Belum Memenuhi Standar yang Ditetapkan",
+      "kondisi": "Dokumen pelaporan Evaluasi Manajemen Risiko pada Direktorat Layanan Digital Pemerintah (DLDP) belum memuat seluruh informasi yang dipersyaratkan dalam ketentuan.",
+      "kriteria": "Standar Audit Intern Pemerintah Indonesia (SAIPI) AAIPI 2021 dan pedoman teknis yang berlaku.",
+      "sebab": "Belum tersedia SOP pelaporan yang komprehensif dan terstandar.",
+      "akibat": "Kualitas laporan tidak optimal sehingga tidak dapat digunakan sebagai dasar pengambilan keputusan yang memadai.",
+      "rekomendasi": "Pimpinan agar menyusun SOP pelaporan yang memuat seluruh komponen yang dipersyaratkan dan melaksanakan pelatihan bagi pejabat penanggung jawab pelaporan.",
+      "level_risiko": "rendah",
+      "nilai_rp": 0,
+      "dokumen_sumber": [
+        {
+          "file": "Laporan-Evaluasi-Manajemen-Risiko-2025.pdf",
+          "halaman": "5-15",
+          "ringkasan": "Dokumen laporan kegiatan"
+        }
+      ]
+    }
+  ]
+}

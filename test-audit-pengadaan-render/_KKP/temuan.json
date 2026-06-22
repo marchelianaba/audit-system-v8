@@ -1,0 +1,57 @@
+{
+  "penugasan": {
+    "penugasan_id": "TEST-PGDAAN-001",
+    "jenis_pengawasan": "audit-pengadaan",
+    "obyek": "Direktorat Pengawasan Sertifikasi dan Transaksi Elektronik (DPSTE)",
+    "nomor_st": "B-22/IJ.3/PW.06.01/01/2026",
+    "tanggal_st": "15 Januari 2026"
+  },
+  "temuan": [
+    {
+      "id_temuan": "T-01",
+      "sasaran_id": "S01",
+      "judul_temuan": "Spesifikasi Teknis Tidak Memuat Parameter Kinerja yang Terukur",
+      "kondisi": "Dokumen spesifikasi teknis layanan sertifikat elektronik tidak mencantumkan parameter kinerja minimum (SLA) secara terukur, seperti availability system dan response time.",
+      "kriteria": "Perpres 16/2018 Pasal 19 ayat (1) mengamanatkan spesifikasi teknis yang jelas, terukur, dan dapat diverifikasi guna menjamin kualitas barang/jasa yang diadakan.",
+      "sebab": "Tim teknis penyusun spesifikasi belum memiliki pemahaman yang memadai mengenai penyusunan SLA dan parameter kinerja layanan digital.",
+      "akibat": "Tanpa parameter kinerja yang terukur, evaluasi kinerja penyedia tidak dapat dilakukan secara objektif sehingga berpotensi mengakibatkan penerimaan layanan yang tidak sesuai kebutuhan.",
+      "rekomendasi": "PPK agar merevisi spesifikasi teknis dengan mencantumkan minimal: (1) availability 99.5%/bulan; (2) response time maksimal 3 detik; (3) denda keterlambatan sesuai Perlem LKPP 12/2021.",
+      "level_risiko": "tinggi",
+      "nilai_rp": 0,
+      "dokumen_sumber": [
+        {"file": "KAK-Sertifikat-Elektronik-2025.pdf", "halaman": "5-8", "ringkasan": "Dokumen spesifikasi teknis"}
+      ]
+    },
+    {
+      "id_temuan": "T-02",
+      "sasaran_id": "S01",
+      "judul_temuan": "Nilai HPS Tidak Didukung Survei Pasar yang Memadai",
+      "kondisi": "HPS sebesar Rp 4.500.000.000,00 hanya didukung oleh satu penawaran dari calon penyedia tanpa disertai survei pasar pembanding dari minimal tiga sumber berbeda.",
+      "kriteria": "Perlem LKPP 12/2021 Pasal 25 mensyaratkan penyusunan HPS berdasarkan data harga pasar setempat dari minimal 2 (dua) sumber yang berbeda dan dapat dipertanggungjawabkan.",
+      "sebab": "Keterbatasan waktu persiapan pengadaan menyebabkan tim PPK tidak melaksanakan survei pasar secara komprehensif.",
+      "akibat": "HPS yang tidak berdasarkan survei pasar yang memadai berpotensi mengakibatkan pemborosan keuangan negara atau menciptakan kondisi monopolistik dalam pengadaan.",
+      "rekomendasi": "PPK agar melaksanakan survei harga pembanding dari minimal 3 penyedia layanan sertifikat elektronik dan mendokumentasikannya dalam kertas kerja HPS sebelum pengadaan berikutnya.",
+      "level_risiko": "tinggi",
+      "nilai_rp": 450000000,
+      "dokumen_sumber": [
+        {"file": "HPS-Sertifikat-Elektronik-2025.xlsx", "halaman": "1-3", "ringkasan": "Dokumen HPS"},
+        {"file": "Penawaran-Penyedia-2025.pdf", "halaman": "1", "ringkasan": "Penawaran tunggal penyedia"}
+      ]
+    },
+    {
+      "id_temuan": "T-03",
+      "sasaran_id": "S02",
+      "judul_temuan": "BAST Tidak Mencantumkan Hasil Pengujian Layanan",
+      "kondisi": "Berita Acara Serah Terima (BAST) hanya memuat pernyataan umum bahwa layanan telah diterima, tanpa lampiran hasil pengujian (UAT) yang membuktikan layanan memenuhi spesifikasi.",
+      "kriteria": "Perlem LKPP 12/2021 Pasal 56 mengatur bahwa serah terima hasil pekerjaan harus disertai bukti hasil pengujian/verifikasi bahwa pekerjaan sesuai spesifikasi yang diperjanjikan.",
+      "sebab": "PPHP tidak menyusun prosedur pengujian tertulis sehingga penerimaan dilakukan hanya berdasarkan konfirmasi verbal dari tim teknis.",
+      "akibat": "Tanpa hasil pengujian yang terdokumentasi, terdapat risiko bahwa layanan yang diterima tidak memenuhi spesifikasi, yang dapat mengakibatkan kerugian negara.",
+      "rekomendasi": "PPHP agar menyusun prosedur pengujian tertulis (UAT checklist) dan melampirkannya dalam BAST; untuk kontrak mendatang, prosedur ini wajib dicantumkan dalam syarat teknis kontrak.",
+      "level_risiko": "sedang",
+      "nilai_rp": 0,
+      "dokumen_sumber": [
+        {"file": "BAST-Sertifikat-Elektronik-2025.pdf", "halaman": "1-2", "ringkasan": "Berita Acara Serah Terima"}
+      ]
+    }
+  ]
+}

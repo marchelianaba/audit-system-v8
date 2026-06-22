@@ -1,0 +1,18 @@
+{
+  "penugasan_id": "TEST-PGDAAN-001",
+  "tujuan_penugasan": "Menilai kesesuaian pelaksanaan pengadaan Layanan Sertifikat Elektronik Tahun 2025 dengan ketentuan perundang-undangan pengadaan barang/jasa pemerintah.",
+  "sasaran": [
+    {
+      "sasaran_id": "S01",
+      "deskripsi": "Menilai kepatuhan proses perencanaan dan pemilihan penyedia Layanan Sertifikat Elektronik TA 2025",
+      "assigned_to": ["Siti Rahayu", "Ahmad Fauzi"],
+      "status": "selesai"
+    },
+    {
+      "sasaran_id": "S02",
+      "deskripsi": "Menilai kepatuhan pelaksanaan kontrak dan penerimaan hasil pekerjaan Layanan Sertifikat Elektronik TA 2025",
+      "assigned_to": ["Ahmad Fauzi"],
+      "status": "selesai"
+    }
+  ]
+}
