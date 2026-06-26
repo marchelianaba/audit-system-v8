@@ -224,6 +224,7 @@ export default function DetailPenugasanPage() {
               role="AT"
               skill={penugasan.skill}
             />
+            <LhpFilesPanel penugasanId={id} variant="kkp" key={`kkp-files-at-${id}`} />
           </div>
         )}
 
@@ -3271,7 +3272,7 @@ const REVIEW_STATUS_COLOR: Record<string, string> = {
   EDITED: 'bg-blue-100 text-blue-800 border-blue-300',
 };
 
-function LhpFilesPanel({ penugasanId }: { penugasanId: number }) {
+function LhpFilesPanel({ penugasanId, variant = 'lhp' }: { penugasanId: number; variant?: 'lhp' | 'kkp' }) {
   const [files, setFiles] = useState<FileEntry[]>([]);
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState<string | null>(null);
@@ -3282,12 +3283,27 @@ function LhpFilesPanel({ penugasanId }: { penugasanId: number }) {
     setLoading(true); setErr(null);
     try {
       const res = await api.listFiles(penugasanId);
-      const lhpCat = res.categories.find(c => c.key === '_LHP');
-      setFiles(lhpCat?.files ?? []);
+      const kkpFiles = res.categories.find(c => c.key === '_KKP')?.files ?? [];
+      // LKE Excel (output evaluasi ber-LKE SPIP/SAKIP) tersimpan di _KKP.
+      const lke = kkpFiles.filter(f => f.name.toLowerCase().startsWith('lke-terisi'));
+      if (variant === 'kkp') {
+        // Kertas Kerja (AT): KKP .docx + LKE Excel
+        const kkpDocx = kkpFiles.filter(f => f.ext === '.docx');
+        setFiles([...kkpDocx, ...lke]);
+      } else {
+        // Draf Laporan (KT) / LRS LHP (PT/PM): laporan _LHP + LKE Excel
+        const lhp = res.categories.find(c => c.key === '_LHP')?.files ?? [];
+        setFiles([...lhp, ...lke]);
+      }
     } catch (e: any) { setErr(e.message); }
     finally { setLoading(false); }
   };
   useEffect(() => { load(); }, [penugasanId]);
+
+  const panelTitle = variant === 'kkp' ? 'Berkas Kertas Kerja (KKP & LKE)' : 'File Laporan (LHP & LKE)';
+  const emptyHint = variant === 'kkp'
+    ? 'Belum ada KKP/LKE. Jalankan Analisis AI terlebih dahulu.'
+    : 'Belum ada file laporan. Generate laporan terlebih dahulu via chat.';
 
   const doDownload = async (f: FileEntry) => {
     try {
@@ -3312,7 +3328,7 @@ function LhpFilesPanel({ penugasanId }: { penugasanId: number }) {
   return (
     <div className="bg-white border border-violet-200 rounded-lg overflow-hidden">
       <div className="bg-violet-50 px-4 py-2.5 border-b border-violet-100 flex items-center justify-between">
-        <span className="font-semibold text-sm text-primary-dark">File Laporan (LHP)</span>
+        <span className="font-semibold text-sm text-primary-dark">{panelTitle}</span>
         <button
           onClick={load}
           disabled={loading}
@@ -3325,9 +3341,7 @@ function LhpFilesPanel({ penugasanId }: { penugasanId: number }) {
       {err && <div className="p-3 text-xs text-red-700 bg-red-50">{err}</div>}
       {loading && <div className="p-3 text-xs text-gray-400 italic">Memuat file laporan…</div>}
       {!loading && files.length === 0 && (
-        <div className="p-4 text-xs text-gray-500">
-          Belum ada file laporan di folder <code className="bg-gray-100 px-1 rounded">_LHP</code>. Generate laporan terlebih dahulu via chat.
-        </div>
+        <div className="p-4 text-xs text-gray-500">{emptyHint}</div>
       )}
       {!loading && files.length > 0 && (
         <table className="w-full text-sm">

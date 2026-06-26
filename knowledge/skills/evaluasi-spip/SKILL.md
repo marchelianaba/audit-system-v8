@@ -19,9 +19,9 @@ changelog:
 > **Skill ini = substansi domain.** Cara menjalankan (role, urutan tool, titik HITL) diatur seragam oleh agen Anggota Tim v7 di `backend/app/prompts/anggota_tim.md` — BUKAN oleh skill ini. Skill ini **TIDAK** memakai bash, `run_batch.py`, `Task 00/01`, `_ROLE.md`, atau `AskUserQuestion` (paradigma lama audit-system-v4).
 
 - **Pelaku:** Agen Anggota Tim (AT). Role & sasaran dibaca dari `_PKP/sasaran-assignment.json` (diisi Ketua Tim via UI Setup). AT hanya mengerjakan sasaran yang `assigned_to`-nya memuat namanya.
-- **Pipeline E3:** *tidak ada tool v7 — criteria/LKE-driven manual* (LKE SPIP diisi/diolah manual; baca dokumen ter-ingest via `read_ingested_digest`).
+- **Pipeline E3:** LKE-driven via tool v7 `read_lke` → `fill_lke` (isi kolom APIP ke **LKE Excel**) → `write_penilaian_lke` (rekap JSON). Baca dokumen ter-ingest via `read_ingested_digest`/`search_bukti`.
 - **Mode:** AT **auto-execute** E0→E3 tanpa berhenti tiap tahap. Titik HITL: **KT approve KKP**, lalu **KT draft LHE** (bukan stop tiap tahap).
-- **Tool inti:** `read_context` → `read_ingested_digest`/`search_bukti` → penilaian per komponen/sub-unsur SPIP → `append_temuan` (catatan/AoI **tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → `write_penilaian_lke` → `render_kkp_docx` → `run_qc_kkp`.
+- **Tool inti:** `read_context` → `read_lke` (baca PM auditee) → `read_ingested_digest`/`search_bukti` → penilaian per komponen/sub-unsur SPIP → `append_temuan` (catatan/AoI **tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → **`fill_lke` (WAJIB — isi kolom APIP ke LKE Excel; output `_KKP/LKE-terisi-evaluasi-spip.xlsx` adalah deliverable utama)** → `write_penilaian_lke` (rekap JSON) → `render_kkp_docx` → `run_qc_kkp`. ⚠ `render_kkp_docx` akan **DITOLAK** bila LKE Excel belum dibuat.
 
 ## Tahap Evaluasi (E0–E4)
 
@@ -30,7 +30,7 @@ changelog:
 | **E0 — Validasi & Konteks** | Pastikan tujuan/ruang lingkup/periode dari KP jelas; LKE SPIP (template `references/templates/lke-spip-kementerian.xlsx`) + dokumen pendukung per unsur tersedia; susun `context.md` bila masih placeholder. | AT (auto) |
 | **E1 — Kerangka Penugasan (KP)** | Latar belakang, tujuan, ruang lingkup, komponen/unsur SPIP yang dinilai (Penetapan Tujuan, Struktur & Proses, Pencapaian Tujuan), metodologi PK atas PM — bersumber `sasaran-assignment.json`. | KT (UI Setup) |
 | **E2 — Program Kerja Pengawasan (PKP)** | Per sasaran: unsur/sub-unsur SPIP yang dinilai · langkah pengujian bukti · bukti yang dicari. | KT (UI Setup) |
-| **E3 — Pelaksanaan & KKP** | Per unsur/sub-unsur: tetapkan Nilai PK (skor maturitas 1–5 LKE, independen dari Nilai PM) berdasar bukti → catatan/AoI (**tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → `append_temuan` + `write_penilaian_lke`. Veto penalti via `KK4_PENALTI` bila ada kasus korupsi (lihat seksi Mekanisme Penalti). | AT (auto) |
+| **E3 — Pelaksanaan & KKP** | Per unsur/sub-unsur: tetapkan Nilai PK (skor maturitas 1–5 LKE, independen dari Nilai PM) berdasar bukti → catatan/AoI (**tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → `append_temuan` → **`fill_lke` (WAJIB — tulis kolom APIP ke LKE Excel)** → `write_penilaian_lke` (rekap JSON). Veto penalti via `KK4_PENALTI` bila ada kasus korupsi (lihat seksi Mekanisme Penalti). **LKE Excel (`_KKP/LKE-terisi-evaluasi-spip.xlsx`) adalah output WAJIB — tanpa itu `render_kkp_docx` ditolak.** | AT (auto) |
 | **E4 — Laporan (LHE)** | Render LHE + Nota Dinas; simpulan tingkat maturitas SPIP (Level 1–5) & Area of Improvement prioritas. | KT |
 
 ## Posisi dalam Keluarga Skill Kinerja

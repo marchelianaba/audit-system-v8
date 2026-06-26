@@ -19,9 +19,9 @@ changelog:
 > **Skill ini = substansi domain.** Cara menjalankan (role, urutan tool, titik HITL) diatur seragam oleh agen Anggota Tim v7 di `backend/app/prompts/anggota_tim.md` — BUKAN oleh skill ini. Skill ini **TIDAK** memakai bash, `run_batch.py`, `Task 00/01`, `_ROLE.md`, atau `AskUserQuestion` (paradigma lama audit-system-v4).
 
 - **Pelaku:** Agen Anggota Tim (AT). Role & sasaran dibaca dari `_PKP/sasaran-assignment.json` (diisi Ketua Tim via UI Setup). AT hanya mengerjakan sasaran yang `assigned_to`-nya memuat namanya.
-- **Pipeline E3:** *tidak ada tool v7 — criteria/LKE-driven manual* (AT mengisi/mengolah LKE & baca dokumen bukti dukung ter-ingest via `read_ingested_digest`).
+- **Pipeline E3:** LKE-driven via tool v7 `read_lke` → `fill_lke` (isi kolom APIP ke **LKE Excel**) → `write_penilaian_lke` (rekap JSON). Baca dokumen bukti dukung ter-ingest via `read_ingested_digest`/`search_bukti`.
 - **Mode:** AT **auto-execute** E0→E3 tanpa berhenti tiap tahap. Titik HITL: **KT approve KKP**, lalu **KT draft LHE** (bukan stop tiap tahap).
-- **Tool inti:** `read_context` → `read_ingested_digest`/`search_bukti` → penilaian per komponen/kriteria (predikat APIP per kriteria LKE) → `append_temuan` (catatan/AoI **tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → `write_penilaian_lke` → `render_kkp_docx` → `run_qc_kkp`.
+- **Tool inti:** `read_context` → `read_lke` (baca PM auditee) → `read_ingested_digest`/`search_bukti` → penilaian per komponen/kriteria (predikat APIP per kriteria LKE) → `append_temuan` (catatan/AoI **tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → **`fill_lke` (WAJIB — isi kolom APIP ke LKE Excel; output `_KKP/LKE-terisi-evaluasi-sakip.xlsx` adalah deliverable utama)** → `write_penilaian_lke` (rekap JSON) → `render_kkp_docx` → `run_qc_kkp`. ⚠ `render_kkp_docx` akan **DITOLAK** bila LKE Excel belum dibuat.
 
 ## Tahap Evaluasi (E0–E4)
 
@@ -30,7 +30,7 @@ changelog:
 | **E0 — Validasi & Konteks** | Pastikan tujuan/ruang lingkup/periode/objek dari KP jelas; LKE PermenPAN-RB 88/2021 + folder bukti dukung (1_a … 4_c) tersedia; susun `context.md` bila masih placeholder. | AT (auto) |
 | **E1 — Kerangka Penugasan (KP)** | Latar belakang, tujuan evaluasi AKIP, ruang lingkup (unit kerja & periode), kriteria (4 komponen / 12 sub-komponen / 79 kriteria LKE), metodologi penilaian predikat — bersumber `sasaran-assignment.json`. | KT (UI Setup) |
 | **E2 — Program Kerja Pengawasan (PKP)** | Per sasaran: komponen/sub-komponen yang dinilai · langkah penilaian (keberadaan/kualitas/pemanfaatan) · bukti dukung yang dicari. | KT (UI Setup) |
-| **E3 — Pelaksanaan & KKP** | Per kriteria: nilai kesesuaian → predikat APIP (skor LKE) berdasar bukti → temuan/catatan & AoI (**tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → `append_temuan` + `write_penilaian_lke`. | AT (auto) |
+| **E3 — Pelaksanaan & KKP** | Per kriteria: nilai kesesuaian → predikat APIP (skor LKE) berdasar bukti → temuan/catatan & AoI (**tanpa unsur Sebab** — evaluasi ber-LKE, bukan KKSA) → `append_temuan` → **`fill_lke` (WAJIB — tulis kolom APIP ke LKE Excel)** → `write_penilaian_lke` (rekap JSON). **LKE Excel (`_KKP/LKE-terisi-evaluasi-sakip.xlsx`) adalah output WAJIB — tanpa itu `render_kkp_docx` ditolak.** | AT (auto) |
 | **E4 — Laporan (LHE)** | Render LHE + Nota Dinas (ikuti `panduan-format-umum/PANDUAN.md`); polish narasi per komponen & rekomendasi; simpulan nilai/kategori AKIP (keyakinan terbatas). | KT |
 
 ---

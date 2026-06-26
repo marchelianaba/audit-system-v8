@@ -520,6 +520,22 @@ def _restore_temuan_from_backup(folder: Path, backup: Path | None) -> None:
         backup.unlink(missing_ok=True)
 
 
+def _skill_from_assignment(folder: Path) -> str | None:
+    """Baca skill penugasan dari `_PKP/sasaran-assignment.json` (sumber terstruktur,
+    sinkron, selalu ada sejak setup). Lebih andal dari parse nama folder."""
+    p = folder / "_PKP" / "sasaran-assignment.json"
+    try:
+        d = json.loads(p.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return None
+    s = d.get("skill") if isinstance(d, dict) else None
+    return s.strip().lower() if isinstance(s, str) else None
+
+
+# Skill evaluasi ber-LKE Excel: output LKE-terisi WAJIB (deliverable utama).
+_LKE_EXCEL_SKILLS = {"evaluasi-spip", "evaluasi-sakip"}
+
+
 @tool(
     "render_kkp_docx",
     "Render KKP-{nama-anggota}.docx menggunakan scripts/render_kkp.py V6. "
@@ -530,6 +546,23 @@ def _restore_temuan_from_backup(folder: Path, backup: Path | None) -> None:
 )
 async def render_kkp_docx(args: dict) -> dict:
     folder = Path(args["penugasan_folder"])
+    # GATE LKE: untuk SPIP/SAKIP, file LKE Excel WAJIB sudah dibuat (via fill_lke)
+    # sebelum render KKP. Mencegah KKP/laporan selesai tanpa output LKE.
+    _lke_skill = _skill_from_assignment(folder)
+    if _lke_skill in _LKE_EXCEL_SKILLS:
+        _lke_xlsx = folder / "_KKP" / f"LKE-terisi-{_lke_skill}.xlsx"
+        if not _lke_xlsx.is_file():
+            return {
+                "content": [{"type": "text", "text": (
+                    f"FAILED|LKE Excel WAJIB untuk {_lke_skill} tapi belum dibuat "
+                    f"(_KKP/LKE-terisi-{_lke_skill}.xlsx tidak ada). Jalankan tool "
+                    f"`fill_lke` (isi kolom APIP per unsur/kriteria) LEBIH DULU, baru "
+                    f"`render_kkp_docx`. Output LKE Excel adalah deliverable wajib "
+                    f"evaluasi ber-LKE — `write_penilaian_lke` (JSON rekap) TIDAK "
+                    f"menggantikan LKE Excel."
+                )}],
+                "is_error": True,
+            }
     backup, stats = await _filter_temuan_by_review(folder)
     filter_note = ""
     if stats is not None:
